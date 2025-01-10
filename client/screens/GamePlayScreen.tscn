@@ -1,8 +1,19 @@
-[gd_scene format=3 uid="uid://d1krnpaxa3ss7"]
+[gd_scene load_steps=3 format=3 uid="uid://d1krnpaxa3ss7"]
 
-[node name="GamePlayScreen" type="Node2D"]
+[ext_resource type="PackedScene" uid="uid://be6f8fgp7c7j8" path="res://scenes/input_manager.tscn" id="1_6gtug"]
+[ext_resource type="PackedScene" uid="uid://cbw1vwjo72tlp" path="res://scenes/desktop.tscn" id="2_dqhc0"]
 
-[node name="Label" type="Label" parent="."]
-offset_right = 56.0
-offset_bottom = 23.0
-text = "Typing!"
+[node name="GamePlayScreen" type="Control"]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InputManager" parent="." instance=ExtResource("1_6gtug")]
+
+[node name="Desktop" parent="." instance=ExtResource("2_dqhc0")]
+
+[connection signal="key_event" from="InputManager" to="Desktop" method="_on_input_manager_key_event"]

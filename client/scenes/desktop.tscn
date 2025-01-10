@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://cbw1vwjo72tlp"]
+
+[ext_resource type="Script" path="res://scripts/desktop.gd" id="1_yfrj2"]
+[ext_resource type="PackedScene" uid="uid://td0dvjc073de" path="res://models/mechanical_keyboard/mechanical_keyboard.glb" id="3_44yi8"]
+[ext_resource type="PackedScene" uid="uid://cuoxo6kmgy45n" path="res://models/monitor/crt_monitor.glb" id="3_53kni"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2lkpj"]
+size = Vector3(22, 1, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mkbey"]
+albedo_color = Color(0.18418, 0.117014, 0.0523396, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yp83k"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+ground_bottom_color = Color(0.0362526, 0.0437017, 0.055128, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_tuwdc"]
+sky_material = SubResource("ProceduralSkyMaterial_yp83k")
+
+[sub_resource type="Environment" id="Environment_ujlaa"]
+background_mode = 2
+sky = SubResource("Sky_tuwdc")
+ambient_light_source = 2
+ambient_light_color = Color(0.560955, 0.560955, 0.560955, 1)
+
+[node name="Desktop" type="Node3D"]
+script = ExtResource("1_yfrj2")
+
+[node name="Table" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -2.85258)
+mesh = SubResource("BoxMesh_2lkpj")
+surface_material_override/0 = SubResource("StandardMaterial3D_mkbey")
+
+[node name="MechanicalKeyboard" parent="." instance=ExtResource("3_44yi8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 2.837)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.991445, 0.130526, 0, -0.130526, 0.991445, 0, 4.045, 7.132)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ujlaa")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 5.325)
+light_color = Color(0.877616, 0.877616, 0.877616, 1)
+light_energy = 7.434
+omni_range = 30.0
+
+[node name="Monitor" parent="." instance=ExtResource("3_53kni")]
+transform = Transform3D(14.695, 0, 0, 0, 14.695, 0, 0, 0, 14.695, -0.467417, 0, -6.26584)
+
+[editable path="MechanicalKeyboard"]
