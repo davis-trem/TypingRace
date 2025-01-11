@@ -47,8 +47,24 @@ func handle_key_event(typed_char: String, is_pressed: bool) -> void:
 
 
 func _load_test_copy() -> void:
-	var file := FileAccess.open('res://test_copy/test1.txt', FileAccess.READ)
-	label.text = file.get_as_text()
+	#print('opening file')
+	#var file := FileAccess.open('res://test_copy/test3.txt', FileAccess.READ)
+	#print('file open!')
+	#
+	#print(file.get_length())
+	#
+	#label.text = file.get_as_text()
+	#file.close()
+	#print('file close')
+	#pass
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.request_completed.connect(_on_request_completed)
+	http_request.request("https://raw.githubusercontent.com/davis-trem/TypingRace/refs/heads/main/client/test_copy/test1.txt")
+
+
+func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+	label.text = body.get_string_from_utf8()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

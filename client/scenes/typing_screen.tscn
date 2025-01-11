@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://wshhqbw63am7"]
+[gd_scene load_steps=5 format=3 uid="uid://wshhqbw63am7"]
 
 [ext_resource type="Script" path="res://scripts/typing_screen.gd" id="1_4p4gk"]
 [ext_resource type="FontFile" uid="uid://bsnsssrwpkme5" path="res://fonts/5ceta_mono.ttf" id="2_oel6g"]
 [ext_resource type="Shader" path="res://shaders/cursor.gdshader" id="4_jnjlg"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lhmeu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cc5n1"]
 shader = ExtResource("4_jnjlg")
@@ -62,14 +60,13 @@ horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer"]
-material = SubResource("ShaderMaterial_lhmeu")
 custom_minimum_size = Vector2(740, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("2_oel6g")
 theme_override_font_sizes/font_size = 20
-text = "YYYYEeeeeerrr!!..? cccc cccccccccccccc kjvkjnv ckjvcjkc dkvjckkbv kjbvc kn ,mfv v fvdkjnefvjnfvc fvjknv v jnv kn jnvb   jnfsjv fjnsdvcibjvdk v ijbevf v i efijfvbjkfv nnvdf    lkV  l h v LBk v  flfvjnv v   vujfvndflbfklb lklkfv;lnfvb  lkvvkjlbvk vflbgv vlhjbfgviueniuvbirgb invogv erfliugvijv vjfvnivnv vjfvibnvk viufvnfiljhnv;oj vjgv v vjfv iunvv vjngvijv v iujvngkv vjgvg vuijv vjnnvkg fijgnvfunv vjgvnvnfjnv o;jnv;jnfjnfv dfj;nbjngbv v jngv;ujntv vj vjngvjnf;ojlvbv v vujnvnvjkgrvjknvb gvjnv vjnvjv kjv;fujnv;kjv vkjtgvbv vjr gujngv vjv t;unjgv gv gvjnvjgv gvjgv gvjtv"
+text = "YYzYYEeeeeerrr!!..? cccc cccccccccccccc kjvkjnv ckjvcjkc dkvjckkbv kjbvc kn ,mfv v fvdkjnefvjnfvc fvjknv v jnv kn jnvb   jnfsjv fjnsdvcibjvdk v ijbevf v i efijfvbjkfv nnvdf    lkV  l h v LBk v  flfvjnv v   vujfvndflbfklb lklkfv;lnfvb  lkvvkjlbvk vflbgv vlhjbfgviueniuvbirgb invogv erfliugvijv vjfvnivnv vjfvibnvk viufvnfiljhnv;oj vjgv v vjfv iunvv vjngvijv v iujvngkv vjgvg vuijv vjnnvkg fijgnvfunv vjgvnvnfjnv o;jnv;jnfjnfv dfj;nbjngbv v jngv;ujntv vj vjngvjnf;ojlvbv v vujnvnvjkgrvjknvb gvjnv vjnvjv kjv;fujnv;kjv vkjtgvbv vjr gujngv vjv t;unjgv gv gvjnvjgv gvjgv gvjtv"
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 

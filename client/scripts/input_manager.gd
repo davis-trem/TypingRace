@@ -1,5 +1,7 @@
 extends Node
 
+@onready var http_request: HTTPRequest = $'../HTTPRequest'
+
 signal key_event(key: String, typed_char: String, is_press: bool)
 
 const shifted_char := {
@@ -8,6 +10,10 @@ const shifted_char := {
 
 var typed_char := ''
 var typed_combination := ''
+
+func _ready() -> void:
+	pass
+
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not event.echo:
