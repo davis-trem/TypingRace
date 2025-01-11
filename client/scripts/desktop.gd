@@ -1,6 +1,7 @@
 extends Node3D
 
 @onready var keyboard_anim_player: AnimationPlayer = $MechanicalKeyboard/AnimationPlayer
+@onready var typing_screen: Control = $SubViewport/TypingScreen
 
 # I named some the animations in the keyboard model different from Godot's
 const key_code_to_keyboard = {
@@ -12,12 +13,15 @@ const key_code_to_keyboard = {
 	'Apostrophe': 'Quote',
 }
 
-func _on_input_manager_key_event(key: String, is_press: bool) -> void:
+
+func _on_input_manager_key_event(key: String, typed_char: String, is_press: bool) -> void:
 	var anim_name := _get_animation_name(key)
 	if is_press:
 		keyboard_anim_player.play(anim_name)
 	else:
 		keyboard_anim_player.play_backwards(anim_name)
+	
+	typing_screen.handle_key_event(typed_char, is_press)
 
 
 func _get_animation_name(key: String) -> String:

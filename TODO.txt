@@ -5,5 +5,6 @@ single player
 multiplayer
 
 Credits
-keyboard model: https://www.cgtrader.com/free-3d-models/electronics/computer/japan-custom-mechanical-keyboard
-crt monitor: https://sketchfab.com/3d-models/viewsonic-15-1546-crt-monitor-f42b0f44d8aa411b8ad6990d13841495
+    keyboard model: https://www.cgtrader.com/free-3d-models/electronics/computer/japan-custom-mechanical-keyboard
+    crt monitor: https://sketchfab.com/3d-models/viewsonic-15-1546-crt-monitor-f42b0f44d8aa411b8ad6990d13841495
+    monitor font: https://www.dafont.com/5ceta-mono.font
