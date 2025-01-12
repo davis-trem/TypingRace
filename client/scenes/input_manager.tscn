@@ -4,3 +4,5 @@
 
 [node name="InputManager" type="Node"]
 script = ExtResource("1_vdvua")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

@@ -21,8 +21,17 @@ func _on_input_manager_key_event(key: String, typed_char: String, is_press: bool
 	else:
 		keyboard_anim_player.play_backwards(anim_name)
 	
+	#print(is_press)
 	typing_screen.handle_key_event(typed_char, is_press)
 
 
 func _get_animation_name(key: String) -> String:
 	return '{0}_pressed'.format([key_code_to_keyboard.get(key, key)])
+
+
+func _on_input_manager_test_copy_loaded(copy: String) -> void:
+	typing_screen.set_test_copy(copy)
+
+
+func _on_input_manager_char_pos_updated(pos: int) -> void:
+	typing_screen.on_char_pos_updated(pos)

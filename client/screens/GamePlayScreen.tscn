@@ -16,4 +16,6 @@ grow_vertical = 2
 
 [node name="Desktop" parent="." instance=ExtResource("2_dqhc0")]
 
+[connection signal="char_pos_updated" from="InputManager" to="Desktop" method="_on_input_manager_char_pos_updated"]
 [connection signal="key_event" from="InputManager" to="Desktop" method="_on_input_manager_key_event"]
+[connection signal="test_copy_loaded" from="InputManager" to="Desktop" method="_on_input_manager_test_copy_loaded"]
