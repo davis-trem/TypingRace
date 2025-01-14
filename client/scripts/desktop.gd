@@ -21,7 +21,6 @@ func _on_input_manager_key_event(key: String, typed_char: String, is_press: bool
 	else:
 		keyboard_anim_player.play_backwards(anim_name)
 	
-	#print(is_press)
 	typing_screen.handle_key_event(typed_char, is_press)
 
 

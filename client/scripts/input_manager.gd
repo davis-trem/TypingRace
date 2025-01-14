@@ -36,7 +36,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			key_event.emit(key, typed_char, true)
 			typed_combination = event.as_text()
 			
-			if test_copy[char_pos] != typed_char:
+			if typed_char == '':
 				return
 			
 			char_pos += 1
