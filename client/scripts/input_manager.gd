@@ -37,6 +37,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			typed_combination = event.as_text()
 			
 			if typed_char == '':
+				if char_pos > 0 and (event.keycode == KEY_BACKSPACE or event.keycode == KEY_DELETE):
+					char_pos -= 1
+					char_pos_updated.emit(char_pos)
 				return
 			
 			char_pos += 1

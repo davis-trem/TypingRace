@@ -7,6 +7,7 @@ const CHAR_WIDTH = 22.5
 
 var rich_text_regex = RegEx.new()
 var char_pos = 0
+var char_line_and_positions := {}
 
 func _ready() -> void:
 	rich_text_regex.compile(r"\[color=.*?\].\[/color\]|.")
@@ -26,10 +27,6 @@ func handle_key_event(typed_char: String, is_pressed: bool) -> void:
 				+ '{0}{1}{2}'.format(['[color=red]', chars[char_pos], '[/color]'])
 				+ ''.join(chars.slice(char_pos + 1))
 			)
-			(cursor.material as ShaderMaterial).set_shader_parameter('mistake_made', true)
-			return
-		
-		(cursor.material as ShaderMaterial).set_shader_parameter('mistake_made', false)
 
 
 func _get_rich_text_chars() -> Array:
@@ -38,23 +35,27 @@ func _get_rich_text_chars() -> Array:
 
 
 func on_char_pos_updated(pos: int) -> void:
-	cursor.position.x += CHAR_WIDTH
-	var current_line := rich_text_label.get_character_line(pos)
-	if current_line != rich_text_label.get_character_line(pos - 1):
-		rich_text_label.scroll_to_line(current_line)
-		cursor.position.x = 0;
+	var chars := _get_rich_text_chars()
+	rich_text_label.text = (
+		''.join(chars.slice(0, pos))
+		+ chars[pos].replace('[color=red]', '').replace('[/color]', '')
+		+ ''.join(chars.slice(pos + 1))
+	)
+	
+	var line = rich_text_label.get_character_line(pos)
+	rich_text_label.scroll_to_line(line)
+	var char_line_index = char_line_and_positions[line].find(pos)
+	cursor.position.x = CHAR_WIDTH * char_line_index
 	
 	char_pos = pos
 
 
 func set_test_copy(copy: String) -> void:
 	rich_text_label.text = copy
-
-
-func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
-	rich_text_label.text = body.get_string_from_utf8()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	char_pos = 0
+	char_line_and_positions = {}
+	for index in range(len(rich_text_label.text)):
+		var line := rich_text_label.get_character_line(index)
+		var positions: Array = char_line_and_positions.get(line, [])
+		positions.append(index)
+		char_line_and_positions[line] = positions
