@@ -1,7 +1,9 @@
 extends Control
 
-@onready var cursor: ColorRect = $MarginContainer/VBoxContainer/RichTextLabel/Cursor
-@onready var rich_text_label: RichTextLabel = $MarginContainer/VBoxContainer/RichTextLabel
+@onready var cursor: ColorRect = $InformationContainer/VBoxContainer/RichTextLabel/Cursor
+@onready var rich_text_label: RichTextLabel = $InformationContainer/VBoxContainer/RichTextLabel
+@onready var information_container: MarginContainer = $InformationContainer
+@onready var loading_spinner: ColorRect = $LoadingSpinner
 
 const CHAR_WIDTH = 22.5
 
@@ -59,3 +61,6 @@ func set_test_copy(copy: String) -> void:
 		var positions: Array = char_line_and_positions.get(line, [])
 		positions.append(index)
 		char_line_and_positions[line] = positions
+	
+	loading_spinner.hide()
+	information_container.show()

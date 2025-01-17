@@ -12,9 +12,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="InputManager" parent="." instance=ExtResource("1_6gtug")]
-
 [node name="Desktop" parent="." instance=ExtResource("2_dqhc0")]
+
+[node name="InputManager" parent="." instance=ExtResource("1_6gtug")]
 
 [connection signal="char_pos_updated" from="InputManager" to="Desktop" method="_on_input_manager_char_pos_updated"]
 [connection signal="key_event" from="InputManager" to="Desktop" method="_on_input_manager_key_event"]
