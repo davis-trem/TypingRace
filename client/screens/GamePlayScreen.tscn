@@ -19,3 +19,4 @@ grow_vertical = 2
 [connection signal="char_pos_updated" from="InputManager" to="Desktop" method="_on_input_manager_char_pos_updated"]
 [connection signal="key_event" from="InputManager" to="Desktop" method="_on_input_manager_key_event"]
 [connection signal="test_copy_loaded" from="InputManager" to="Desktop" method="_on_input_manager_test_copy_loaded"]
+[connection signal="test_time_updated" from="InputManager" to="Desktop" method="_on_input_manager_test_time_updated"]

@@ -4,6 +4,9 @@ extends Control
 @onready var rich_text_label: RichTextLabel = $InformationContainer/VBoxContainer/RichTextLabel
 @onready var information_container: MarginContainer = $InformationContainer
 @onready var loading_spinner: ColorRect = $LoadingSpinner
+@onready var test_time_label: Label = $InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/TestTime
+@onready var words_per_min_label: Label = $InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/WordsPerMin
+@onready var accuracy_label: Label = $InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/Accuracy
 
 const CHAR_WIDTH = 22.5
 
@@ -64,3 +67,13 @@ func set_test_copy(copy: String) -> void:
 	
 	loading_spinner.hide()
 	information_container.show()
+
+
+func update_test_time(time: int, wpm: float, accuracy: float) -> void:
+	var min := time / 60
+	var sec := '{0}'.format([time % 60]).pad_zeros(2)
+	test_time_label.text = '{0}:{1}'.format([min, sec])
+	
+	words_per_min_label.text = '{0} Words Per Minute'.format([roundi(wpm)])
+	
+	accuracy_label.text = 'Accuracy {0}%'.format([roundi(accuracy * 100)])

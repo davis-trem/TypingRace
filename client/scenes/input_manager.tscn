@@ -6,3 +6,7 @@
 script = ExtResource("1_vdvua")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="OneSecTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="OneSecTimer" to="." method="_on_one_sec_timer_timeout"]

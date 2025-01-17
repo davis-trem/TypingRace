@@ -34,3 +34,7 @@ func _on_input_manager_test_copy_loaded(copy: String) -> void:
 
 func _on_input_manager_char_pos_updated(pos: int) -> void:
 	typing_screen.on_char_pos_updated(pos)
+
+
+func _on_input_manager_test_time_updated(time: int, wpm: float, accuracy: float) -> void:
+	typing_screen.update_test_time(time, wpm, accuracy)
