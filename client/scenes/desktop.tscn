@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cbw1vwjo72tlp"]
+[gd_scene load_steps=14 format=3 uid="uid://cbw1vwjo72tlp"]
 
 [ext_resource type="Script" path="res://scripts/desktop.gd" id="1_yfrj2"]
 [ext_resource type="PackedScene" uid="uid://td0dvjc073de" path="res://models/mechanical_keyboard/mechanical_keyboard.glb" id="3_44yi8"]
@@ -28,6 +28,67 @@ ambient_light_color = Color(0.560955, 0.560955, 0.560955, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gwfm2"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Animation" id="Animation_yaqm6"]
+resource_name = "wide_view_to_close_view"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 4.045, 7.132), Vector3(-0.43, 5.145, 2.802)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.130899, 0, 0), Vector3(-0.0349066, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gf5np"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 4.045, 7.132)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.130899, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2e71i"]
+_data = {
+"RESET": SubResource("Animation_gf5np"),
+"wide_view_to_close_view": SubResource("Animation_yaqm6")
+}
 
 [node name="Desktop" type="Node3D"]
 script = ExtResource("1_yfrj2")
@@ -69,6 +130,11 @@ texture = SubResource("ViewportTexture_gwfm2")
 size = Vector2i(800, 600)
 
 [node name="TypingScreen" parent="SubViewport" instance=ExtResource("4_wabhb")]
+
+[node name="CameraAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2e71i")
+}
 
 [editable path="MechanicalKeyboard"]
 [editable path="Monitor"]

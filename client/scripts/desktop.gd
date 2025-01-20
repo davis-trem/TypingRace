@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var keyboard_anim_player: AnimationPlayer = $MechanicalKeyboard/AnimationPlayer
 @onready var typing_screen: Control = $SubViewport/TypingScreen
+@onready var camera_animation_player: AnimationPlayer = $CameraAnimationPlayer
 
 # I named some the animations in the keyboard model different from Godot's
 const key_code_to_keyboard = {
@@ -12,6 +13,8 @@ const key_code_to_keyboard = {
 	'BracketRight': 'Bracket_close',
 	'Apostrophe': 'Quote',
 }
+
+var in_wide_view := true
 
 
 func _on_input_manager_key_event(key: String, typed_char: String, is_press: bool) -> void:
@@ -38,3 +41,12 @@ func _on_input_manager_char_pos_updated(pos: int) -> void:
 
 func _on_input_manager_test_time_updated(time: int, wpm: float, accuracy: float) -> void:
 	typing_screen.update_test_time(time, wpm, accuracy)
+
+
+func _on_toggle_zoom_button_pressed() -> void:
+	if in_wide_view:
+		in_wide_view = false
+		camera_animation_player.play('wide_view_to_close_view')
+	else:
+		in_wide_view = true
+		camera_animation_player.play_backwards('wide_view_to_close_view')
