@@ -8,7 +8,8 @@ signal test_copy_loaded(copy: String)
 signal char_pos_updated(pos: int)
 signal test_time_updated(time: int, wpm: float, accuracy: float)
 
-const default_test_copy = 'Habits are powerful forces in our lives. They shape our daily routines, influence our decisions, and define who we are. Developing good habits can lead to long-term success, while breaking bad ones can be challenging but transformative. The key to building lasting habits lies in consistency and patience. Start small and focus on incremental progress. Celebrate your achievements along the way, no matter how minor they may seem. Over time, these small actions accumulate, leading to significant change. Remember, the path to self-improvement is not a sprint but a marathon. Stay committed and trust the process.'
+const default_test_copy := 'Habits are powerful forces in our lives. They shape our daily routines, influence our decisions, and define who we are. Developing good habits can lead to long-term success, while breaking bad ones can be challenging but transformative. The key to building lasting habits lies in consistency and patience. Start small and focus on incremental progress. Celebrate your achievements along the way, no matter how minor they may seem. Over time, these small actions accumulate, leading to significant change. Remember, the path to self-improvement is not a sprint but a marathon. Stay committed and trust the process.'
+const filenames := ['test1.txt', 'test2.txt', 'test3.txt']
 
 var typed_char := ''
 var typed_combination := ''
@@ -35,7 +36,12 @@ func _start_test():
 
 func _load_test_copy() -> void:
 	http_request.request_completed.connect(_on_test_copy_request_completed)
-	http_request.request("https://raw.githubusercontent.com/davis-trem/TypingRace/refs/heads/main/client/test_copy/test1.txt")
+	var filename = filenames.pick_random()
+	http_request.request(
+		'https://raw.githubusercontent.com/davis-trem/TypingRace/refs/heads/main/client/test_copy/{0}'.format(
+			[filename]
+		)
+	)
 
 
 func _on_test_copy_request_completed(
