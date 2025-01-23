@@ -1,3 +1,7 @@
+bugs
+    copy doesn't scroll if fits screen
+    space triggers buttons after press
+
 opening screen
 single player
     desktop keyboard onclick

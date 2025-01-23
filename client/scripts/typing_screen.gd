@@ -12,7 +12,6 @@ const CHAR_WIDTH = 22.5
 
 var rich_text_regex = RegEx.new()
 var char_pos = 0
-var char_line_and_positions := {}
 
 func _ready() -> void:
 	rich_text_regex.compile(r"\[color=.*?\].\[/color\]|.")
@@ -49,21 +48,28 @@ func on_char_pos_updated(pos: int) -> void:
 	
 	var line = rich_text_label.get_character_line(pos)
 	rich_text_label.scroll_to_line(line)
-	var char_line_index = char_line_and_positions[line].find(pos)
+	var char_line_index = _get_relative_line_pos(pos)
 	cursor.position.x = CHAR_WIDTH * char_line_index
 	
 	char_pos = pos
 
 
+func _get_relative_line_pos(pos: int) -> int:
+	var line = rich_text_label.get_character_line(pos)
+	if line == 0:
+		return pos
+	
+	var pos_of_first_char_in_line = pos
+	while rich_text_label.get_character_line(pos_of_first_char_in_line - 1) == line:
+		pos_of_first_char_in_line -= 1
+	
+	return pos - pos_of_first_char_in_line
+
+
 func set_test_copy(copy: String) -> void:
 	rich_text_label.text = copy
+	rich_text_label.scroll_to_line(0)
 	char_pos = 0
-	char_line_and_positions = {}
-	for index in range(len(rich_text_label.text)):
-		var line := rich_text_label.get_character_line(index)
-		var positions: Array = char_line_and_positions.get(line, [])
-		positions.append(index)
-		char_line_and_positions[line] = positions
 	
 	loading_spinner.hide()
 	information_container.show()
