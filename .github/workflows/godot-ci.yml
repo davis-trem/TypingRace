@@ -73,7 +73,7 @@ jobs:
         mv coi-serviceworker/coi-serviceworker.js ${EXPORT_FOLDER}/coi-serviceworker.js
     
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ env.EXPORT_PRESET_NAME }}
         path: ${{ env.EXPORT_FOLDER }}

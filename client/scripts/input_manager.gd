@@ -111,3 +111,12 @@ func _calculate_wpm_and_accuracy() -> Array[float]:
 	var accuracy := 0.0 if total_entries == 0 else float(total_entries - total_errors) / float(total_entries)
 	
 	return [wpm, accuracy]
+
+
+func _on_v_keyboard_button_pressed() -> void:
+	var kb_visible = $'../OnscreenKeyboard'.visible
+	
+	if kb_visible:
+		$'../OnscreenKeyboard'.hide()
+	else:
+		$'../OnscreenKeyboard'.show()
