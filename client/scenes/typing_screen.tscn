@@ -79,6 +79,7 @@ scroll_active = false
 
 [node name="Cursor" type="ColorRect" parent="InformationContainer/VBoxContainer/RichTextLabel"]
 material = SubResource("ShaderMaterial_cc5n1")
+layout_mode = 0
 offset_right = 22.5
 offset_bottom = 50.0
 color = Color(0, 0.745098, 0, 1)

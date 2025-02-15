@@ -2,6 +2,7 @@ extends Node
 
 @onready var http_request: HTTPRequest = $HTTPRequest
 @onready var one_sec_timer: Timer = $OneSecTimer
+@onready var onscreen_keyboard: PanelContainer = $'../OnscreenKeyboard'
 
 signal key_event(key: String, typed_char: String, is_press: bool)
 signal test_copy_loaded(copy: String)
@@ -114,9 +115,4 @@ func _calculate_wpm_and_accuracy() -> Array[float]:
 
 
 func _on_v_keyboard_button_pressed() -> void:
-	var kb_visible = $'../OnscreenKeyboard'.visible
-	
-	if kb_visible:
-		$'../OnscreenKeyboard'.hide()
-	else:
-		$'../OnscreenKeyboard'.show()
+	onscreen_keyboard.visible = not onscreen_keyboard.visible

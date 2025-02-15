@@ -50,6 +50,7 @@ text = "Toggle Zoom"
 [node name="InputManager" parent="VBoxContainer" instance=ExtResource("1_6gtug")]
 
 [node name="OnscreenKeyboard" type="PanelContainer" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("4_acogd")
