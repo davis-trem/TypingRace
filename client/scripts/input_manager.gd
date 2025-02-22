@@ -11,6 +11,11 @@ signal test_time_updated(time: int, wpm: float, accuracy: float)
 
 const default_test_copy := 'Habits are powerful forces in our lives. They shape our daily routines, influence our decisions, and define who we are. Developing good habits can lead to long-term success, while breaking bad ones can be challenging but transformative. The key to building lasting habits lies in consistency and patience. Start small and focus on incremental progress. Celebrate your achievements along the way, no matter how minor they may seem. Over time, these small actions accumulate, leading to significant change. Remember, the path to self-improvement is not a sprint but a marathon. Stay committed and trust the process.'
 const filenames := ['test1.txt', 'test2.txt', 'test3.txt']
+const test_type_time_map = {
+	SceneManager.TEST_TYPE.SOLO1: 60,
+	SceneManager.TEST_TYPE.SOLO2: 120,
+	SceneManager.TEST_TYPE.SOLO3: 180,
+}
 
 var typed_char := ''
 var typed_combination := ''
@@ -19,20 +24,31 @@ var test_copy := ''
 var give_test_time := 60
 var test_time := give_test_time
 var char_entries := []
-var total_entries :int= 0
-var total_errors :int= 0
+var total_entries: int = 0
+var total_errors: int = 0
+var test_initalized := false
+var test_in_prorgess := false
+var test_type: SceneManager.TEST_TYPE
 
 func _ready() -> void:
+	SceneManager.initializing_test.connect(_on_initializing_test)
+
+
+func _on_initializing_test(_test_type: SceneManager.TEST_TYPE):
+	test_type = _test_type
 	_load_test_copy()
+	test_initalized = true
 
 
 func _start_test():
+	give_test_time = test_type_time_map[test_type]
 	test_time = give_test_time
 	char_entries = []
 	total_entries = 0
 	total_errors = 0
 	test_time_updated.emit(test_time, 0.0, 1.0)
 	one_sec_timer.start()
+	test_in_prorgess = true
 
 
 func _load_test_copy() -> void:
@@ -76,7 +92,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 				return
 			
 			# Begin Test when typing starts
-			if one_sec_timer.is_stopped() and test_time != 0:
+			if test_initalized and not test_in_prorgess:
 				_start_test()
 			
 			total_entries += 1
@@ -100,6 +116,7 @@ func _on_one_sec_timer_timeout() -> void:
 	test_time_updated.emit(test_time, wpm_and_accuracy[0], wpm_and_accuracy[1])
 	if test_time == 0:
 		one_sec_timer.stop()
+		test_in_prorgess = false
 
 
 func _calculate_wpm_and_accuracy() -> Array[float]:

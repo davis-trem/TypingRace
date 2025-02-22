@@ -1,0 +1,101 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhsp2to56wp6k"]
+
+[ext_resource type="PackedScene" uid="uid://cjslfxwttaovi" path="res://scenes/base_crt_screen.tscn" id="1_jn0wj"]
+[ext_resource type="Script" path="res://scripts/main_menu_screen.gd" id="2_d2pvs"]
+[ext_resource type="FontFile" uid="uid://bsnsssrwpkme5" path="res://fonts/5ceta_mono.ttf" id="2_xe0lv"]
+
+[node name="MainMenuScreen" instance=ExtResource("1_jn0wj")]
+script = ExtResource("2_d2pvs")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/InformationContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="TestTime" type="Label" parent="Background/InformationContainer/VBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_xe0lv")
+theme_override_font_sizes/font_size = 30
+text = "Typing Test"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/InformationContainer/VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="SoloButton" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
+theme_override_fonts/font = ExtResource("2_xe0lv")
+text = "Solo Test"
+flat = true
+
+[node name="SoloOptions" type="MarginContainer" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="1"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Solo1Button" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
+theme_override_fonts/font = ExtResource("2_xe0lv")
+text = "1 minute"
+flat = true
+
+[node name="Solo2Button" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
+theme_override_fonts/font = ExtResource("2_xe0lv")
+text = "2 minute"
+flat = true
+
+[node name="Solo3Button" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer" index="2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
+theme_override_fonts/font = ExtResource("2_xe0lv")
+text = "3 minute"
+flat = true
+
+[node name="MultiplayerButton" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
+theme_override_fonts/font = ExtResource("2_xe0lv")
+text = "Multiplayer"
+flat = true
+
+[node name="OptionsButton" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="3"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
+theme_override_fonts/font = ExtResource("2_xe0lv")
+text = "Options"
+flat = true
+
+[node name="CreditsButton" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="4"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
+theme_override_fonts/font = ExtResource("2_xe0lv")
+text = "Credits"
+flat = true
+
+[connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloButton" to="." method="_on_solo_button_pressed"]
+[connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer/Solo1Button" to="." method="_on_solo_1_button_pressed"]
+[connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer/Solo2Button" to="." method="_on_solo_2_button_pressed"]
+[connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer/Solo3Button" to="." method="_on_solo_3_button_pressed"]

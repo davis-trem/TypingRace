@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/desktop.gd" id="1_yfrj2"]
 [ext_resource type="PackedScene" uid="uid://td0dvjc073de" path="res://models/mechanical_keyboard/mechanical_keyboard.glb" id="3_44yi8"]
 [ext_resource type="PackedScene" uid="uid://cuoxo6kmgy45n" path="res://models/monitor/crt_monitor.glb" id="3_53kni"]
-[ext_resource type="PackedScene" uid="uid://wshhqbw63am7" path="res://scenes/typing_screen.tscn" id="4_wabhb"]
+[ext_resource type="PackedScene" uid="uid://dhsp2to56wp6k" path="res://scenes/main_menu_screen.tscn" id="4_fqcea"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2lkpj"]
 size = Vector3(22, 1, 15)
@@ -130,7 +130,7 @@ texture = SubResource("ViewportTexture_gwfm2")
 [node name="SubViewport" type="SubViewport" parent="."]
 size = Vector2i(800, 600)
 
-[node name="TypingScreen" parent="SubViewport" instance=ExtResource("4_wabhb")]
+[node name="MainMenuScreen" parent="SubViewport" instance=ExtResource("4_fqcea")]
 
 [node name="CameraAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
