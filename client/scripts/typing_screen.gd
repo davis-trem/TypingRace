@@ -83,3 +83,13 @@ func update_test_time(time: int, wpm: float, accuracy: float) -> void:
 	words_per_min_label.text = '{0} Words Per Minute'.format([roundi(wpm)])
 	
 	accuracy_label.text = 'Accuracy {0}%'.format([roundi(accuracy * 100)])
+
+
+func reset_test() -> void:
+	test_time_label.text = '0:00'
+	words_per_min_label.text = 'Start Typing To Begin'
+	accuracy_label.text = 'Accuracy 100%'
+	char_pos = 0
+	cursor.position.x = 0
+	rich_text_label.scroll_to_line(0)
+	

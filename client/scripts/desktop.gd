@@ -1,12 +1,14 @@
 extends Node3D
 
 const typing_screen_scene = preload('res://scenes/typing_screen.tscn')
+const popup_menu_scene = preload('res://scenes/popup_menu.tscn')
 
 @onready var keyboard_anim_player: AnimationPlayer = $MechanicalKeyboard/AnimationPlayer
 @onready var camera_animation_player: AnimationPlayer = $CameraAnimationPlayer
 @onready var sub_viewport: SubViewport = $SubViewport
 
 var typing_screen: Control
+var popup_menu: Control
 
 # I named some the animations in the keyboard model different from Godot's
 const key_code_to_keyboard = {
@@ -20,6 +22,11 @@ const key_code_to_keyboard = {
 }
 
 var in_wide_view := true
+var is_popup_menu_open := false
+
+
+func _ready() -> void:
+	SceneManager.retry_test.connect(_on_retry_test)
 
 func _input(event: InputEvent) -> void:
 	sub_viewport.push_input(event)
@@ -56,6 +63,30 @@ func _on_input_manager_char_pos_updated(pos: int) -> void:
 func _on_input_manager_test_time_updated(time: int, wpm: float, accuracy: float) -> void:
 	if typing_screen:
 		typing_screen.update_test_time(time, wpm, accuracy)
+	
+	if time == 0:
+		if popup_menu == null:
+			popup_menu = popup_menu_scene.instantiate()
+			sub_viewport.add_child(popup_menu)
+		popup_menu.description.text = 'WPM: {0}\nAccuracy: {1}%\nRetry?'.format([
+			roundi(wpm),
+			roundi(accuracy * 100)
+		])
+		popup_menu.yes_button.pressed.connect(_on_accept_retry)
+
+
+func _on_accept_retry() -> void:
+	SceneManager.retry_test.emit()
+
+
+func _on_retry_test() -> void:
+	if popup_menu:
+		sub_viewport.remove_child(popup_menu)
+		popup_menu.queue_free()
+		popup_menu = null
+	
+	if typing_screen:
+		typing_screen.reset_test()
 
 
 func _on_toggle_zoom_button_pressed() -> void:
@@ -65,3 +96,16 @@ func _on_toggle_zoom_button_pressed() -> void:
 	else:
 		in_wide_view = true
 		camera_animation_player.play_backwards('wide_view_to_close_view')
+
+
+func _on_input_manager_toggle_popup_menu(description: String, accept: Callable, deny: Callable) -> void:
+	if popup_menu:
+		sub_viewport.remove_child(popup_menu)
+		popup_menu.queue_free()
+		popup_menu = null
+	else:
+		popup_menu = popup_menu_scene.instantiate()
+		sub_viewport.add_child(popup_menu)
+		popup_menu.description.text = description
+		popup_menu.no_button.pressed.connect(deny)
+		popup_menu.yes_button.pressed.connect(accept)

@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1krnpaxa3ss7"]
+[gd_scene load_steps=4 format=3 uid="uid://d1krnpaxa3ss7"]
 
 [ext_resource type="PackedScene" uid="uid://be6f8fgp7c7j8" path="res://scenes/input_manager.tscn" id="1_6gtug"]
-[ext_resource type="Script" path="res://scripts/game_play_screen.gd" id="1_h4muh"]
 [ext_resource type="PackedScene" uid="uid://cbw1vwjo72tlp" path="res://scenes/desktop.tscn" id="2_dqhc0"]
 [ext_resource type="Script" path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" id="4_acogd"]
 
@@ -13,7 +12,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_h4muh")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -38,11 +36,13 @@ size_flags_vertical = 0
 
 [node name="VKeyboardButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Keyboard"
 
 [node name="ToggleZoomButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+focus_mode = 0
 text = "Toggle Zoom"
 
 [node name="Desktop" parent="VBoxContainer" instance=ExtResource("2_dqhc0")]
@@ -62,3 +62,4 @@ auto_show = false
 [connection signal="key_event" from="VBoxContainer/InputManager" to="VBoxContainer/Desktop" method="_on_input_manager_key_event"]
 [connection signal="test_copy_loaded" from="VBoxContainer/InputManager" to="VBoxContainer/Desktop" method="_on_input_manager_test_copy_loaded"]
 [connection signal="test_time_updated" from="VBoxContainer/InputManager" to="VBoxContainer/Desktop" method="_on_input_manager_test_time_updated"]
+[connection signal="toggle_popup_menu" from="VBoxContainer/InputManager" to="VBoxContainer/Desktop" method="_on_input_manager_toggle_popup_menu"]

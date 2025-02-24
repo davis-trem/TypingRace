@@ -8,6 +8,7 @@ signal key_event(key: String, typed_char: String, is_press: bool)
 signal test_copy_loaded(copy: String)
 signal char_pos_updated(pos: int)
 signal test_time_updated(time: int, wpm: float, accuracy: float)
+signal toggle_popup_menu(description: String, accept: Callable, deny: Callable)
 
 const default_test_copy := 'Habits are powerful forces in our lives. They shape our daily routines, influence our decisions, and define who we are. Developing good habits can lead to long-term success, while breaking bad ones can be challenging but transformative. The key to building lasting habits lies in consistency and patience. Start small and focus on incremental progress. Celebrate your achievements along the way, no matter how minor they may seem. Over time, these small actions accumulate, leading to significant change. Remember, the path to self-improvement is not a sprint but a marathon. Stay committed and trust the process.'
 const filenames := ['test1.txt', 'test2.txt', 'test3.txt']
@@ -32,12 +33,34 @@ var test_type: SceneManager.TEST_TYPE
 
 func _ready() -> void:
 	SceneManager.initializing_test.connect(_on_initializing_test)
+	SceneManager.retry_test.connect(_restart_test)
 
 
 func _on_initializing_test(_test_type: SceneManager.TEST_TYPE):
 	test_type = _test_type
 	_load_test_copy()
+	typed_char = ''
+	typed_combination = ''
+	char_pos = 0
+	char_entries = []
+	total_entries = 0
+	total_errors = 0
 	test_initalized = true
+	test_in_prorgess = false
+
+
+func _restart_test():
+	typed_char = ''
+	typed_combination = ''
+	char_pos = 0
+	give_test_time = test_type_time_map[test_type]
+	test_time = give_test_time
+	char_entries = []
+	total_entries = 0
+	total_errors = 0
+	test_initalized = true
+	test_in_prorgess = false
+	test_copy_loaded.emit(test_copy)
 
 
 func _start_test():
@@ -80,6 +103,15 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		if event.pressed:
 			key_event.emit(key, typed_char, true)
 			typed_combination = event.as_text()
+			
+			# Toggle Exit menu
+			if test_initalized and test_time > 0 and event.keycode == KEY_ESCAPE:
+				toggle_popup_menu.emit(
+					'Exit?',
+					func (): toggle_popup_menu.emit('', func(): return, func(): return),
+					func (): toggle_popup_menu.emit('', func(): return, func(): return),
+				)
+				return
 			
 			if typed_char == '':
 				if char_pos > 0 and (event.keycode == KEY_BACKSPACE or event.keycode == KEY_DELETE):

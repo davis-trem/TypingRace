@@ -7,6 +7,7 @@ enum  TEST_TYPE {
 }
 
 signal initializing_test(test_type: TEST_TYPE);
+signal retry_test;
 
 func initialize_test(test_type: TEST_TYPE):
 	initializing_test.emit(test_type)

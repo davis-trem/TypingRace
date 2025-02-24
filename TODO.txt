@@ -1,6 +1,5 @@
 bugs
     copy doesn't scroll if fits screen
-    space triggers buttons after press
     vboard chars small on resize
     vboard delete doesn't work
     vboard covers screen on zoom

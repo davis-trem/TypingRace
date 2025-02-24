@@ -1,0 +1,82 @@
+[gd_scene load_steps=3 format=3 uid="uid://6wbp0se8yqbw"]
+
+[ext_resource type="FontFile" uid="uid://bsnsssrwpkme5" path="res://fonts/5ceta_mono.ttf" id="1_4t1ff"]
+[ext_resource type="Script" path="res://scripts/popup_menu.gd" id="1_ui53v"]
+
+[node name="PopupMenu" type="Control"]
+custom_minimum_size = Vector2(800, 600)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ui53v")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Panel/CenterContainer"]
+custom_minimum_size = Vector2(500, 375)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/CenterContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CenterContainer/ColorRect/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Description" type="Label" parent="Panel/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("1_4t1ff")
+theme_override_font_sizes/font_size = 20
+text = "Exit?"
+
+[node name="OptionsContainer" type="HBoxContainer" parent="Panel/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="NoButton" type="Button" parent="Panel/CenterContainer/ColorRect/MarginContainer/VBoxContainer/OptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
+theme_override_fonts/font = ExtResource("1_4t1ff")
+text = "No
+"
+flat = true
+
+[node name="YesButton" type="Button" parent="Panel/CenterContainer/ColorRect/MarginContainer/VBoxContainer/OptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
+theme_override_fonts/font = ExtResource("1_4t1ff")
+text = "Yes"
+flat = true
