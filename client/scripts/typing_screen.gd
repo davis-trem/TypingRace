@@ -1,3 +1,4 @@
+class_name TypingScreen
 extends Control
 
 @onready var cursor: ColorRect = $InformationContainer/VBoxContainer/RichTextLabel/Cursor

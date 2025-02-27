@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://hawhevma55ng"]
+
+[ext_resource type="PackedScene" uid="uid://cjslfxwttaovi" path="res://scenes/base_crt_screen.tscn" id="1_4txf0"]
+[ext_resource type="FontFile" uid="uid://bsnsssrwpkme5" path="res://fonts/5ceta_mono.ttf" id="2_w4k8w"]
+[ext_resource type="Script" path="res://scripts/loading_screen.gd" id="2_x4g63"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_najm6"]
+bg_color = Color(0, 0.745098, 0, 1)
+
+[node name="LoadingScreen" instance=ExtResource("1_4txf0")]
+script = ExtResource("2_x4g63")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/InformationContainer" index="0"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Background/InformationContainer/VBoxContainer" index="0"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Background/InformationContainer/VBoxContainer/CenterContainer" index="0"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_w4k8w")
+text = "Loading"
+
+[node name="ProgressBar" type="ProgressBar" parent="Background/InformationContainer/VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_w4k8w")
+theme_override_styles/fill = SubResource("StyleBoxFlat_najm6")
+step = 1.0

@@ -1,7 +1,7 @@
 extends Node3D
 
-const typing_screen_scene = preload('res://scenes/typing_screen.tscn')
 const popup_menu_scene = preload('res://scenes/popup_menu.tscn')
+const loading_screen_scene = preload('res://scenes/loading_screen.tscn')
 
 @onready var keyboard_anim_player: AnimationPlayer = $MechanicalKeyboard/AnimationPlayer
 @onready var camera_animation_player: AnimationPlayer = $CameraAnimationPlayer
@@ -27,6 +27,9 @@ var is_popup_menu_open := false
 
 func _ready() -> void:
 	SceneManager.retry_test.connect(_on_retry_test)
+	SceneManager.loading_new_screen.connect(_on_loading_new_screen)
+	SceneManager.screen_loaded.connect(_on_screen_loaded)
+
 
 func _input(event: InputEvent) -> void:
 	sub_viewport.push_input(event)
@@ -48,11 +51,9 @@ func _get_animation_name(key: String) -> String:
 
 
 func _on_input_manager_test_copy_loaded(copy: String) -> void:
-	typing_screen = typing_screen_scene.instantiate()
-	var screens := sub_viewport.get_children()
-	sub_viewport.remove_child(screens[0])
-	sub_viewport.add_child(typing_screen)
 	typing_screen.set_test_copy(copy)
+	typing_screen.show()
+	SceneManager.loading_complete.emit()
 
 
 func _on_input_manager_char_pos_updated(pos: int) -> void:
@@ -73,10 +74,15 @@ func _on_input_manager_test_time_updated(time: int, wpm: float, accuracy: float)
 			roundi(accuracy * 100)
 		])
 		popup_menu.yes_button.pressed.connect(_on_accept_retry)
+		popup_menu.no_button.pressed.connect(_on_deny_retry)
 
 
 func _on_accept_retry() -> void:
 	SceneManager.retry_test.emit()
+
+
+func _on_deny_retry() -> void:
+	SceneManager.change_screen(SceneManager.SCREEN_MAIN_MENU)
 
 
 func _on_retry_test() -> void:
@@ -87,6 +93,25 @@ func _on_retry_test() -> void:
 	
 	if typing_screen:
 		typing_screen.reset_test()
+
+
+func _on_loading_new_screen(new_screen_path: String, on_load_complete: Callable) -> void:
+	for node in sub_viewport.get_children():
+		node.queue_free()
+	popup_menu = null
+	
+	var loading_screen := loading_screen_scene.instantiate()
+	loading_screen.new_screen_path = new_screen_path
+	loading_screen.on_load_complete = on_load_complete
+	sub_viewport.add_child(loading_screen)
+
+
+func _on_screen_loaded(screen: Node) -> void:
+	if screen is TypingScreen:
+		typing_screen = screen
+	else:
+		typing_screen = null
+		screen.show()
 
 
 func _on_toggle_zoom_button_pressed() -> void:

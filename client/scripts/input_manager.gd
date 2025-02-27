@@ -47,6 +47,7 @@ func _on_initializing_test(_test_type: SceneManager.TEST_TYPE):
 	total_errors = 0
 	test_initalized = true
 	test_in_prorgess = false
+	one_sec_timer.stop()
 
 
 func _restart_test():
@@ -60,6 +61,7 @@ func _restart_test():
 	total_errors = 0
 	test_initalized = true
 	test_in_prorgess = false
+	one_sec_timer.stop()
 	test_copy_loaded.emit(test_copy)
 
 
@@ -95,6 +97,10 @@ func _on_test_copy_request_completed(
 	test_copy_loaded.emit(test_copy)
 
 
+func _return_to_main_menu() -> void:
+	SceneManager.change_screen(SceneManager.SCREEN_MAIN_MENU)
+
+
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not event.echo:
 		var key: String = OS.get_keycode_string(event.key_label)
@@ -108,7 +114,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			if test_initalized and test_time > 0 and event.keycode == KEY_ESCAPE:
 				toggle_popup_menu.emit(
 					'Exit?',
-					func (): toggle_popup_menu.emit('', func(): return, func(): return),
+					_return_to_main_menu,
 					func (): toggle_popup_menu.emit('', func(): return, func(): return),
 				)
 				return
