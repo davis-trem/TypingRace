@@ -55,6 +55,7 @@ layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("4_acogd")
 auto_show = false
+font_size = 40
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/VKeyboardButton" to="VBoxContainer/InputManager" method="_on_v_keyboard_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/ToggleZoomButton" to="VBoxContainer/Desktop" method="_on_toggle_zoom_button_pressed"]

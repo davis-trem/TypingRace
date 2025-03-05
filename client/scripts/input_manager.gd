@@ -110,42 +110,47 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			key_event.emit(key, typed_char, true)
 			typed_combination = event.as_text()
 			
-			# Toggle Exit menu
-			if test_initalized and test_time > 0 and event.keycode == KEY_ESCAPE:
-				toggle_popup_menu.emit(
-					'Exit?',
-					_return_to_main_menu,
-					func (): toggle_popup_menu.emit('', func(): return, func(): return),
-				)
-				return
+			if test_initalized:
+				_handle_test_input(event)
 			
-			if typed_char == '':
-				if char_pos > 0 and (event.keycode == KEY_BACKSPACE or event.keycode == KEY_DELETE):
-					char_entries.pop_back()
-					char_pos -= 1
-					char_pos_updated.emit(char_pos)
-					
-					var wpm_and_accuracy := _calculate_wpm_and_accuracy()
-					test_time_updated.emit(test_time, wpm_and_accuracy[0], wpm_and_accuracy[1])
-				return
-			
-			# Begin Test when typing starts
-			if test_initalized and not test_in_prorgess:
-				_start_test()
-			
-			total_entries += 1
-			var correct_char := typed_char == test_copy[char_pos]
-			if not correct_char:
-				total_errors += 1
-			char_entries.append(correct_char)
-			char_pos += 1
+		else:
+			key_event.emit(key, typed_char, false)
+
+
+func _handle_test_input(event: InputEvent) -> void:
+	# Toggle Exit menu
+	if test_time > 0 and event.is_action_pressed('ui_cancel'):
+		toggle_popup_menu.emit(
+			'Exit?',
+			_return_to_main_menu,
+			func (): toggle_popup_menu.emit('', func(): return, func(): return),
+		)
+		return
+	
+	if typed_char == '':
+		if char_pos > 0 and (event.keycode == KEY_BACKSPACE or event.keycode == KEY_DELETE):
+			char_entries.pop_back()
+			char_pos -= 1
 			char_pos_updated.emit(char_pos)
 			
 			var wpm_and_accuracy := _calculate_wpm_and_accuracy()
 			test_time_updated.emit(test_time, wpm_and_accuracy[0], wpm_and_accuracy[1])
-		else:
-			key_event.emit(key, typed_char, false)
-
+		return
+	
+	# Begin Test when typing starts
+	if not test_in_prorgess:
+		_start_test()
+	
+	total_entries += 1
+	var correct_char := typed_char == test_copy[char_pos]
+	if not correct_char:
+		total_errors += 1
+	char_entries.append(correct_char)
+	char_pos += 1
+	char_pos_updated.emit(char_pos)
+	
+	var wpm_and_accuracy := _calculate_wpm_and_accuracy()
+	test_time_updated.emit(test_time, wpm_and_accuracy[0], wpm_and_accuracy[1])
 
 func _on_one_sec_timer_timeout() -> void:
 	test_time -= 1

@@ -281,13 +281,27 @@ func _key_released(key_data):
 		input_event_key.pressed = true
 
 		var key = KeyListHandler.get_key_from_string(key_value)
-		if !uppercase && KeyListHandler.has_lowercase(key_value):
-			key +=32
 
+		input_event_key.key_label = key
 		input_event_key.keycode = key
-		input_event_key.unicode = key
+		input_event_key.unicode = key + 32 if !uppercase && KeyListHandler.has_lowercase(key_value) else key
+		if key == KEY_ENTER or key == KEY_BACKSPACE:
+			input_event_key.unicode = 0
 
 		Input.parse_input_event(input_event_key)
+
+		if key == KEY_ENTER:
+			var release_event = InputEventKey.new()
+			release_event.shift_pressed = false
+			release_event.alt_pressed = false
+			release_event.meta_pressed = false
+			release_event.ctrl_pressed = false
+			release_event.pressed = false
+			release_event.key_label = key
+			release_event.keycode = key
+			release_event.unicode = 0
+			Input.parse_input_event(release_event)
+			
 
 		###########################
 		## DISABLE CAPSLOCK AFTER 
