@@ -1,8 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1krnpaxa3ss7"]
+[gd_scene load_steps=10 format=3 uid="uid://d1krnpaxa3ss7"]
 
 [ext_resource type="PackedScene" uid="uid://be6f8fgp7c7j8" path="res://scenes/input_manager.tscn" id="1_6gtug"]
+[ext_resource type="Texture2D" uid="uid://bm5a6exqw8qk4" path="res://assets/keyboard-icon.png" id="1_akuuq"]
 [ext_resource type="PackedScene" uid="uid://cbw1vwjo72tlp" path="res://scenes/desktop.tscn" id="2_dqhc0"]
+[ext_resource type="Texture2D" uid="uid://dr7nq6eutpeei" path="res://assets/zoom_in_icon.png" id="2_xo1v1"]
 [ext_resource type="Script" path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" id="4_acogd"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_cr42h"]
+action = &"toggle_virtual_keyboard"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_txbjv"]
+events = [SubResource("InputEventAction_cr42h")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_lsaa0"]
+action = &"toggle_zoom"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_fu5ee"]
+events = [SubResource("InputEventAction_lsaa0")]
 
 [node name="GamePlayScreen" type="Control"]
 custom_minimum_size = Vector2(1152, 648)
@@ -31,19 +47,30 @@ theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_vertical = 0
 
 [node name="VKeyboardButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+tooltip_text = "Keyboard"
 focus_mode = 0
-text = "Keyboard"
+shortcut = SubResource("Shortcut_txbjv")
+icon = ExtResource("1_akuuq")
+icon_alignment = 1
+expand_icon = true
 
 [node name="ToggleZoomButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 10
+tooltip_text = "Toggle Zoom"
 focus_mode = 0
-text = "Toggle Zoom"
+shortcut = SubResource("Shortcut_fu5ee")
+icon = ExtResource("2_xo1v1")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Desktop" parent="VBoxContainer" instance=ExtResource("2_dqhc0")]
 

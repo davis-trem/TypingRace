@@ -2,10 +2,13 @@ extends Node3D
 
 const popup_menu_scene = preload('res://scenes/popup_menu.tscn')
 const loading_screen_scene = preload('res://scenes/loading_screen.tscn')
+const ZOOM_IN_ICON = preload('res://assets/zoom_in_icon.png')
+const ZOOM_OUT_ICON = preload('res://assets/zoom_out_icon.png')
 
 @onready var keyboard_anim_player: AnimationPlayer = $MechanicalKeyboard/AnimationPlayer
 @onready var camera_animation_player: AnimationPlayer = $CameraAnimationPlayer
 @onready var sub_viewport: SubViewport = $SubViewport
+@onready var toggle_zoom_button: Button = $'../MarginContainer/HBoxContainer/ToggleZoomButton'
 
 var typing_screen: Control
 var popup_menu: Control
@@ -118,9 +121,11 @@ func _on_toggle_zoom_button_pressed() -> void:
 	if in_wide_view:
 		in_wide_view = false
 		camera_animation_player.play('wide_view_to_close_view')
+		toggle_zoom_button.icon = ZOOM_OUT_ICON
 	else:
 		in_wide_view = true
 		camera_animation_player.play_backwards('wide_view_to_close_view')
+		toggle_zoom_button.icon = ZOOM_IN_ICON
 
 
 func _on_input_manager_toggle_popup_menu(description: String, accept: Callable, deny: Callable) -> void:
