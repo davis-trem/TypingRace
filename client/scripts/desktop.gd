@@ -40,6 +40,9 @@ func _input(event: InputEvent) -> void:
 
 func _on_input_manager_key_event(key: String, typed_char: String, is_press: bool) -> void:
 	var anim_name := _get_animation_name(key)
+	if not keyboard_anim_player.has_animation(anim_name):
+		return
+	
 	if is_press:
 		keyboard_anim_player.play(anim_name)
 	else:

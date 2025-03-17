@@ -99,3 +99,4 @@ flat = true
 [connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer/Solo1Button" to="." method="_on_solo_1_button_pressed"]
 [connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer/Solo2Button" to="." method="_on_solo_2_button_pressed"]
 [connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer/Solo3Button" to="." method="_on_solo_3_button_pressed"]
+[connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]

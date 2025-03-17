@@ -3,6 +3,7 @@ extends Node
 @onready var http_request: HTTPRequest = $HTTPRequest
 @onready var one_sec_timer: Timer = $OneSecTimer
 @onready var onscreen_keyboard: PanelContainer = $'../OnscreenKeyboard'
+@onready var click_audio_stream_player: AudioStreamPlayer = $'../../ClickAudioStreamPlayer'
 
 signal key_event(key: String, typed_char: String, is_press: bool)
 signal test_copy_loaded(copy: String)
@@ -107,6 +108,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		typed_char = char(event.unicode)
 		
 		if event.pressed:
+			if SceneManager.enable_sound_fx:
+				click_audio_stream_player.play()
 			key_event.emit(key, typed_char, true)
 			typed_combination = event.as_text()
 			

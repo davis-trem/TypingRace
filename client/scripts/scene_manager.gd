@@ -8,12 +8,15 @@ enum  TEST_TYPE {
 
 const SCREEN_MAIN_MENU = 'res://scenes/main_menu_screen.tscn'
 const SCREEN_TYPING_TEST = 'res://scenes/typing_screen.tscn'
+const SCREEN_OPTIONS = 'res://scenes/options_screen.tscn'
 
 signal initializing_test(test_type: TEST_TYPE);
 signal retry_test;
 signal loading_new_screen(path: String, on_load_complete: Callable);
 signal screen_loaded(screen: Node);
 signal loading_complete;
+
+var enable_sound_fx := true
 
 
 func initialize_test(test_type: TEST_TYPE):

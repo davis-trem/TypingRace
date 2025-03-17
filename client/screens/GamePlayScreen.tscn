@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1krnpaxa3ss7"]
+[gd_scene load_steps=11 format=3 uid="uid://d1krnpaxa3ss7"]
 
 [ext_resource type="PackedScene" uid="uid://be6f8fgp7c7j8" path="res://scenes/input_manager.tscn" id="1_6gtug"]
 [ext_resource type="Texture2D" uid="uid://bm5a6exqw8qk4" path="res://assets/keyboard-icon.png" id="1_akuuq"]
 [ext_resource type="PackedScene" uid="uid://cbw1vwjo72tlp" path="res://scenes/desktop.tscn" id="2_dqhc0"]
 [ext_resource type="Texture2D" uid="uid://dr7nq6eutpeei" path="res://assets/zoom_in_icon.png" id="2_xo1v1"]
 [ext_resource type="Script" path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" id="4_acogd"]
+[ext_resource type="AudioStream" uid="uid://cgyi1nm4oimh7" path="res://assets/click_keyboard.mp3" id="6_4bxpw"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_cr42h"]
 action = &"toggle_virtual_keyboard"
@@ -83,6 +84,9 @@ size_flags_vertical = 3
 script = ExtResource("4_acogd")
 auto_show = false
 font_size = 40
+
+[node name="ClickAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_4bxpw")
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/VKeyboardButton" to="VBoxContainer/InputManager" method="_on_v_keyboard_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/ToggleZoomButton" to="VBoxContainer/Desktop" method="_on_toggle_zoom_button_pressed"]

@@ -22,3 +22,7 @@ func _on_solo_2_button_pressed() -> void:
 
 func _on_solo_3_button_pressed() -> void:
 	SceneManager.initialize_test(SceneManager.TEST_TYPE.SOLO3)
+
+
+func _on_options_button_pressed() -> void:
+	SceneManager.change_screen(SceneManager.SCREEN_OPTIONS)
