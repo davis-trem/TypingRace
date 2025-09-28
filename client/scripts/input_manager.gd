@@ -77,6 +77,11 @@ func _start_test():
 	test_in_prorgess = true
 
 
+func _end_test():
+	one_sec_timer.stop()
+	test_in_prorgess = false
+
+
 func _load_test_copy() -> void:
 	http_request.request_completed.connect(_on_test_copy_request_completed)
 	var filename = filenames.pick_random()
@@ -99,6 +104,7 @@ func _on_test_copy_request_completed(
 
 
 func _return_to_main_menu() -> void:
+	_end_test()
 	SceneManager.change_screen(SceneManager.SCREEN_MAIN_MENU)
 
 
@@ -155,14 +161,14 @@ func _handle_test_input(event: InputEvent) -> void:
 	var wpm_and_accuracy := _calculate_wpm_and_accuracy()
 	test_time_updated.emit(test_time, wpm_and_accuracy[0], wpm_and_accuracy[1])
 
+
 func _on_one_sec_timer_timeout() -> void:
 	test_time -= 1
 	
 	var wpm_and_accuracy := _calculate_wpm_and_accuracy()
 	test_time_updated.emit(test_time, wpm_and_accuracy[0], wpm_and_accuracy[1])
 	if test_time == 0:
-		one_sec_timer.stop()
-		test_in_prorgess = false
+		_end_test()
 
 
 func _calculate_wpm_and_accuracy() -> Array[float]:
