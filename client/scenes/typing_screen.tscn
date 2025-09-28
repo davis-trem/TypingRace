@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://wshhqbw63am7"]
 
-[ext_resource type="Script" path="res://scripts/typing_screen.gd" id="1_4p4gk"]
+[ext_resource type="Script" uid="uid://cw0af8hehxlkc" path="res://scripts/typing_screen.gd" id="1_4p4gk"]
 [ext_resource type="FontFile" uid="uid://bsnsssrwpkme5" path="res://fonts/5ceta_mono.ttf" id="2_oel6g"]
-[ext_resource type="Shader" path="res://shaders/cursor.gdshader" id="4_jnjlg"]
+[ext_resource type="Shader" uid="uid://ibefarpof5gw" path="res://shaders/cursor.gdshader" id="4_jnjlg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cc5n1"]
 shader = ExtResource("4_jnjlg")

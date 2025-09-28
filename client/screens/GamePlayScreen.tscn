@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bm5a6exqw8qk4" path="res://assets/keyboard-icon.png" id="1_akuuq"]
 [ext_resource type="PackedScene" uid="uid://cbw1vwjo72tlp" path="res://scenes/desktop.tscn" id="2_dqhc0"]
 [ext_resource type="Texture2D" uid="uid://dr7nq6eutpeei" path="res://assets/zoom_in_icon.png" id="2_xo1v1"]
-[ext_resource type="Script" path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" id="4_acogd"]
+[ext_resource type="Script" uid="uid://dl4kbclwofvc7" path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" id="4_acogd"]
 [ext_resource type="AudioStream" uid="uid://cgyi1nm4oimh7" path="res://assets/click_keyboard.mp3" id="6_4bxpw"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_cr42h"]

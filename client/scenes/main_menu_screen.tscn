@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dhsp2to56wp6k"]
 
 [ext_resource type="PackedScene" uid="uid://cjslfxwttaovi" path="res://scenes/base_crt_screen.tscn" id="1_jn0wj"]
-[ext_resource type="Script" path="res://scripts/main_menu_screen.gd" id="2_d2pvs"]
+[ext_resource type="Script" uid="uid://un0gmu84otyu" path="res://scripts/main_menu_screen.gd" id="2_d2pvs"]
 [ext_resource type="FontFile" uid="uid://bsnsssrwpkme5" path="res://fonts/5ceta_mono.ttf" id="2_xe0lv"]
 
 [node name="MainMenuScreen" instance=ExtResource("1_jn0wj")]

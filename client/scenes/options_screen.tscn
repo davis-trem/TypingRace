@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cuvesbak463tt"]
 
 [ext_resource type="PackedScene" uid="uid://cjslfxwttaovi" path="res://scenes/base_crt_screen.tscn" id="1_y42ix"]
-[ext_resource type="Script" path="res://scripts/options_screen.gd" id="2_ifgjt"]
+[ext_resource type="Script" uid="uid://byy644skehtdt" path="res://scripts/options_screen.gd" id="2_ifgjt"]
 [ext_resource type="FontFile" uid="uid://bsnsssrwpkme5" path="res://fonts/5ceta_mono.ttf" id="3_toc6j"]
 
 [node name="OptionsScreen" instance=ExtResource("1_y42ix")]

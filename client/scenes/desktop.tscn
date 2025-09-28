@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://cbw1vwjo72tlp"]
 
-[ext_resource type="Script" path="res://scripts/desktop.gd" id="1_yfrj2"]
+[ext_resource type="Script" uid="uid://b0fq40i772bgk" path="res://scripts/desktop.gd" id="1_yfrj2"]
 [ext_resource type="PackedScene" uid="uid://td0dvjc073de" path="res://models/mechanical_keyboard/mechanical_keyboard.glb" id="3_44yi8"]
 [ext_resource type="PackedScene" uid="uid://cuoxo6kmgy45n" path="res://models/monitor/crt_monitor.glb" id="3_53kni"]
 [ext_resource type="PackedScene" uid="uid://dhsp2to56wp6k" path="res://scenes/main_menu_screen.tscn" id="4_fqcea"]
@@ -86,8 +86,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2e71i"]
 _data = {
-"RESET": SubResource("Animation_gf5np"),
-"wide_view_to_close_view": SubResource("Animation_yaqm6")
+&"RESET": SubResource("Animation_gf5np"),
+&"wide_view_to_close_view": SubResource("Animation_yaqm6")
 }
 
 [node name="Desktop" type="Node3D"]
@@ -134,7 +134,7 @@ size = Vector2i(800, 600)
 
 [node name="CameraAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_2e71i")
+&"": SubResource("AnimationLibrary_2e71i")
 }
 
 [editable path="MechanicalKeyboard"]
