@@ -5,6 +5,7 @@ extends Control
 
 var new_screen_path: String
 var on_load_complete: Callable
+var on_screen_initialized: Callable
 
 var elapsed_time := 0.0
 
@@ -26,6 +27,7 @@ func _process(delta: float) -> void:
 	if progress[0] == 1:
 		var new_screen_scene : PackedScene = ResourceLoader.load_threaded_get(new_screen_path)
 		var screen := new_screen_scene.instantiate()
+		on_screen_initialized.call(screen)
 		screen.hide()
 		add_sibling(screen)
 		SceneManager.screen_loaded.emit(screen)

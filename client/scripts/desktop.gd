@@ -101,7 +101,11 @@ func _on_retry_test() -> void:
 		typing_screen.reset_test()
 
 
-func _on_loading_new_screen(new_screen_path: String, on_load_complete: Callable) -> void:
+func _on_loading_new_screen(
+	new_screen_path: String,
+	on_load_complete: Callable,
+	on_screen_initialized: Callable
+) -> void:
 	for node in sub_viewport.get_children():
 		node.queue_free()
 	popup_menu = null
@@ -109,6 +113,7 @@ func _on_loading_new_screen(new_screen_path: String, on_load_complete: Callable)
 	var loading_screen := loading_screen_scene.instantiate()
 	loading_screen.new_screen_path = new_screen_path
 	loading_screen.on_load_complete = on_load_complete
+	loading_screen.on_screen_initialized = on_screen_initialized
 	sub_viewport.add_child(loading_screen)
 
 

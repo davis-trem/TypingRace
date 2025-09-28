@@ -44,6 +44,7 @@ theme_override_constants/separation = 30
 [node name="Solo1Button" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer" index="0"]
 layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_right = NodePath("../Solo2Button")
 theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
 theme_override_fonts/font = ExtResource("2_xe0lv")
@@ -53,6 +54,7 @@ flat = true
 [node name="Solo2Button" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer" index="1"]
 layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_left = NodePath("../Solo1Button")
 theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
 theme_override_fonts/font = ExtResource("2_xe0lv")
@@ -77,7 +79,35 @@ theme_override_fonts/font = ExtResource("2_xe0lv")
 text = "Multiplayer"
 flat = true
 
-[node name="OptionsButton" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="3"]
+[node name="MuliplayerOptions" type="MarginContainer" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="3"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/InformationContainer/VBoxContainer/VBoxContainer/MuliplayerOptions" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="JoinRandomButton" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer/MuliplayerOptions/HBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
+theme_override_fonts/font = ExtResource("2_xe0lv")
+text = "Join Random"
+flat = true
+
+[node name="PrivateRoomButton" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer/MuliplayerOptions/HBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
+theme_override_fonts/font = ExtResource("2_xe0lv")
+disabled = true
+text = "Private Room"
+flat = true
+
+[node name="OptionsButton" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="4"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
@@ -86,7 +116,7 @@ theme_override_fonts/font = ExtResource("2_xe0lv")
 text = "Options"
 flat = true
 
-[node name="CreditsButton" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="4"]
+[node name="CreditsButton" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="5"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
@@ -99,4 +129,7 @@ flat = true
 [connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer/Solo1Button" to="." method="_on_solo_1_button_pressed"]
 [connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer/Solo2Button" to="." method="_on_solo_2_button_pressed"]
 [connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions/HBoxContainer/Solo3Button" to="." method="_on_solo_3_button_pressed"]
+[connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/MuliplayerOptions/HBoxContainer/JoinRandomButton" to="." method="_on_join_random_button_pressed"]
+[connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/MuliplayerOptions/HBoxContainer/PrivateRoomButton" to="." method="_on_private_room_button_pressed"]
 [connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]

@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://dda462mr360dm"]
+
+[ext_resource type="PackedScene" uid="uid://cjslfxwttaovi" path="res://scenes/base_crt_screen.tscn" id="1_n8q5n"]
+[ext_resource type="Script" uid="uid://bwbu5h17pgkmc" path="res://scripts/multiplayer_screen.gd" id="2_3djh2"]
+[ext_resource type="FontFile" uid="uid://bsnsssrwpkme5" path="res://fonts/5ceta_mono.ttf" id="3_nt8p3"]
+
+[node name="MultiplayerScreen" instance=ExtResource("1_n8q5n")]
+script = ExtResource("2_3djh2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/InformationContainer" index="0"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/InformationContainer/VBoxContainer" index="0"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BackButton" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
+theme_override_fonts/font = ExtResource("3_nt8p3")
+theme_override_font_sizes/font_size = 10
+text = "Back"
+flat = true
+
+[node name="Title" type="Label" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_nt8p3")
+theme_override_font_sizes/font_size = 30
+text = "Multiplayer"
+
+[node name="Status" type="Label" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("3_nt8p3")
+theme_override_font_sizes/font_size = 20
+text = "Connecting"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/InformationContainer/VBoxContainer/VBoxContainer" index="3"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ContinueButton" type="Button" parent="Background/InformationContainer/VBoxContainer/VBoxContainer/VBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
+theme_override_fonts/font = ExtResource("3_nt8p3")
+disabled = true
+text = "Ready"
+flat = true
+
+[connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
