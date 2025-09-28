@@ -9,6 +9,7 @@ var players: Dictionary[int, int] = {} # { [peer_id: int]: instance_id: int }
 func connect_to_server() -> void:
 	print('connecting to server')
 	multiplayer_peer.create_client(host, port)
+	multiplayer_peer.get_peer(1).set_timeout(0, 0, 3000) # attempt to ping server
 	multiplayer.multiplayer_peer = multiplayer_peer
 
 

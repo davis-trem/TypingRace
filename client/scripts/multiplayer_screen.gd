@@ -34,17 +34,21 @@ func _process(delta: float) -> void:
 
 
 func _on_connected_to_server() -> void:
+	prints('connection success')
 	status_text = 'Looking for opponent'
 	Server.request_join_random_room()
 
 
 func _on_connection_failed() -> void:
+	prints('connection failed')
 	status_text = 'Unable to connect to server'
+	status.text = status_text
 	connecting = false
 
 
 func _on_back_button_pressed() -> void:
-	Server.disconnect_from_server()
+	if Server.multiplayer_peer.get_connection_status() == ENetMultiplayerPeer.CONNECTION_CONNECTED:
+		Server.disconnect_from_server()
 	SceneManager.change_screen(SceneManager.SCREEN_MAIN_MENU)
 
 
