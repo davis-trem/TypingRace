@@ -52,7 +52,7 @@ theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0.745098, 0, 1)
 theme_override_fonts/font = ExtResource("3_nt8p3")
 disabled = true
-text = "Ready"
+text = "Confirm Ready"
 flat = true
 
 [connection signal="pressed" from="Background/InformationContainer/VBoxContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -3,8 +3,11 @@ extends Node
 var multiplayer_peer := ENetMultiplayerPeer.new()
 const host := '127.0.0.1'
 const port := 1909
-var room_id := ''
+var room_id: int
 var players: Dictionary[int, int] = {} # { [peer_id: int]: instance_id: int }
+
+signal joined_room_and_waiting(room_id: int)
+signal room_ready_to_start(room_id: int, peer_ids: Array)
 
 func connect_to_server() -> void:
 	print('connecting to server')
@@ -22,6 +25,18 @@ func disconnect_from_server() -> void:
 
 func request_join_random_room():
 	join_random_room.rpc_id(1)
+
+
+@rpc('authority')
+func room_successfully_created(_room_id: int):
+	room_id = _room_id
+	joined_room_and_waiting.emit(_room_id)
+
+
+@rpc('authority')
+func room_filled_and_ready(_room_id: int, peer_ids: Array):
+	room_id = _room_id
+	room_ready_to_start.emit(_room_id, peer_ids)
 
 
 ######### Server methods #########

@@ -21,6 +21,9 @@ func _ready() -> void:
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	
+	Server.joined_room_and_waiting.connect(_on_joined_room_and_waiting)
+	Server.room_ready_to_start.connect(_on_room_ready_to_start)
+	
 	Server.connect_to_server()
 
 
@@ -44,6 +47,18 @@ func _on_connection_failed() -> void:
 	status_text = 'Unable to connect to server'
 	status.text = status_text
 	connecting = false
+
+
+func _on_joined_room_and_waiting(room_id: int) -> void:
+	prints('room_successfully_created', room_id)
+
+
+func _on_room_ready_to_start(room_id: int, peer_ids: Array) -> void:
+	prints('room_filled_and_ready', room_id, peer_ids)
+	status_text = 'Opponent found!'
+	status.text = status_text
+	connecting = false
+	continue_button.disabled = false
 
 
 func _on_back_button_pressed() -> void:
