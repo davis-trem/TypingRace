@@ -4,6 +4,7 @@ enum  TEST_TYPE {
 	SOLO1,
 	SOLO2,
 	SOLO3,
+	MULTI
 }
 
 enum MULTIPLAYER_TYPE {
@@ -29,9 +30,9 @@ func initialize_test(test_type: TEST_TYPE):
 	loading_new_screen.emit(
 		SCREEN_TYPING_TEST,
 		func(): initializing_test.emit(test_type),
-		func(node): return
+		func(_node): return
 	)
 
 
-func change_screen(path: String, on_screen_initialized: Callable = func(node): return) -> void:
+func change_screen(path: String, on_screen_initialized: Callable = func(_node): return) -> void:
 	loading_new_screen.emit(path, func(): loading_complete.emit(), on_screen_initialized)

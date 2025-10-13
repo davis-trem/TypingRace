@@ -68,4 +68,6 @@ func _on_back_button_pressed() -> void:
 
 
 func _on_continue_button_pressed() -> void:
-	pass # Replace with function body.
+	Server.confirm_ready_for_test()
+	status_text = 'Waiting for opponent to confirm ready'
+	status.text = status_text

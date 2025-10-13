@@ -77,9 +77,9 @@ func set_test_copy(copy: String) -> void:
 
 
 func update_test_time(time: int, wpm: float, accuracy: float) -> void:
-	var min := time / 60
+	var minute := time / 60
 	var sec := '{0}'.format([time % 60]).pad_zeros(2)
-	test_time_label.text = '{0}:{1}'.format([min, sec])
+	test_time_label.text = '{0}:{1}'.format([minute, sec])
 	
 	words_per_min_label.text = '{0} Words Per Minute'.format([roundi(wpm)])
 	

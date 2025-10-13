@@ -17,6 +17,7 @@ const test_type_time_map = {
 	SceneManager.TEST_TYPE.SOLO1: 60,
 	SceneManager.TEST_TYPE.SOLO2: 120,
 	SceneManager.TEST_TYPE.SOLO3: 180,
+	SceneManager.TEST_TYPE.MULTI: 60,
 }
 
 var typed_char := ''
@@ -35,6 +36,8 @@ var test_type: SceneManager.TEST_TYPE
 func _ready() -> void:
 	SceneManager.initializing_test.connect(_on_initializing_test)
 	SceneManager.retry_test.connect(_restart_test)
+	Server.multiplayer_test_has_started.connect(_start_test)
+	Server.test_stats_updated.connect(_on_test_stats_updated)
 
 
 func _on_initializing_test(_test_type: SceneManager.TEST_TYPE):
@@ -72,8 +75,9 @@ func _start_test():
 	char_entries = []
 	total_entries = 0
 	total_errors = 0
-	test_time_updated.emit(test_time, 0.0, 1.0)
-	one_sec_timer.start()
+	if test_type != SceneManager.TEST_TYPE.MULTI:
+		test_time_updated.emit(test_time, 0.0, 1.0)
+		one_sec_timer.start()
 	test_in_prorgess = true
 
 
@@ -84,7 +88,7 @@ func _end_test():
 
 func _load_test_copy() -> void:
 	http_request.request_completed.connect(_on_test_copy_request_completed)
-	var filename = filenames.pick_random()
+	var filename = filenames[2] if test_type == SceneManager.TEST_TYPE.MULTI else  filenames.pick_random()
 	http_request.request(
 		'https://raw.githubusercontent.com/davis-trem/TypingRace/refs/heads/main/client/test_copy/{0}'.format(
 			[filename]
@@ -93,7 +97,7 @@ func _load_test_copy() -> void:
 
 
 func _on_test_copy_request_completed(
-	result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray
+	result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray
 ) -> void:
 	if result == HTTPRequest.RESULT_SUCCESS:
 		test_copy = body.get_string_from_utf8()
@@ -141,14 +145,27 @@ func _handle_test_input(event: InputEvent) -> void:
 			char_entries.pop_back()
 			char_pos -= 1
 			char_pos_updated.emit(char_pos)
-			
-			var wpm_and_accuracy := _calculate_wpm_and_accuracy()
-			test_time_updated.emit(test_time, wpm_and_accuracy[0], wpm_and_accuracy[1])
+
+			if test_type == SceneManager.TEST_TYPE.MULTI:
+				Server.on_test_key_input.rpc_id(
+					1,
+					char_entries,
+					test_time,
+					total_entries,
+					total_errors
+				)
+			else:
+				var wpm_and_accuracy := _calculate_wpm_and_accuracy()
+				test_time_updated.emit(test_time, wpm_and_accuracy[0], wpm_and_accuracy[1])
 		return
 	
 	# Begin Test when typing starts
 	if not test_in_prorgess:
-		_start_test()
+		
+		if test_type == SceneManager.TEST_TYPE.MULTI:
+			Server.start_test.rpc_id(1, Server.room_id)
+		else:
+			_start_test()
 	
 	total_entries += 1
 	var correct_char := typed_char == test_copy[char_pos]
@@ -158,8 +175,24 @@ func _handle_test_input(event: InputEvent) -> void:
 	char_pos += 1
 	char_pos_updated.emit(char_pos)
 	
-	var wpm_and_accuracy := _calculate_wpm_and_accuracy()
-	test_time_updated.emit(test_time, wpm_and_accuracy[0], wpm_and_accuracy[1])
+	if test_type == SceneManager.TEST_TYPE.MULTI:
+		Server.on_test_key_input.rpc_id(
+			1,
+			Server.room_id,
+			char_entries,
+			test_time,
+			total_entries,
+			total_errors
+		)
+	else:
+		var wpm_and_accuracy := _calculate_wpm_and_accuracy()
+		test_time_updated.emit(test_time, wpm_and_accuracy[0], wpm_and_accuracy[1])
+
+
+func _on_test_stats_updated(_test_time: int, players_stats: Dictionary) -> void:
+	var wpm = players_stats[multiplayer.get_unique_id()]['wpm']
+	var accuracy = players_stats[multiplayer.get_unique_id()]['accuracy']
+	test_time_updated.emit(_test_time, wpm, accuracy)
 
 
 func _on_one_sec_timer_timeout() -> void:
