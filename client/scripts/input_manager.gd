@@ -9,6 +9,7 @@ signal key_event(key: String, typed_char: String, is_press: bool)
 signal test_copy_loaded(copy: String)
 signal char_pos_updated(pos: int)
 signal test_time_updated(time: int, wpm: float, accuracy: float)
+signal multiplayer_opponent_stats_updated(wpm: float, accuracy: float)
 signal toggle_popup_menu(description: String, accept: Callable, deny: Callable)
 
 const default_test_copy := 'Habits are powerful forces in our lives. They shape our daily routines, influence our decisions, and define who we are. Developing good habits can lead to long-term success, while breaking bad ones can be challenging but transformative. The key to building lasting habits lies in consistency and patience. Start small and focus on incremental progress. Celebrate your achievements along the way, no matter how minor they may seem. Over time, these small actions accumulate, leading to significant change. Remember, the path to self-improvement is not a sprint but a marathon. Stay committed and trust the process.'
@@ -150,7 +151,6 @@ func _handle_test_input(event: InputEvent) -> void:
 				Server.on_test_key_input.rpc_id(
 					1,
 					char_entries,
-					test_time,
 					total_entries,
 					total_errors
 				)
@@ -180,7 +180,6 @@ func _handle_test_input(event: InputEvent) -> void:
 			1,
 			Server.room_id,
 			char_entries,
-			test_time,
 			total_entries,
 			total_errors
 		)
@@ -190,9 +189,16 @@ func _handle_test_input(event: InputEvent) -> void:
 
 
 func _on_test_stats_updated(_test_time: int, players_stats: Dictionary) -> void:
-	var wpm = players_stats[multiplayer.get_unique_id()]['wpm']
-	var accuracy = players_stats[multiplayer.get_unique_id()]['accuracy']
+	var peer_id = multiplayer.get_unique_id()
+	var wpm = players_stats[peer_id]['wpm']
+	var accuracy = players_stats[peer_id]['accuracy']
+	
+	var opponent_peer_id = players_stats.keys().filter(func (p): return p != peer_id)[0]
+	var opponent_wpm = players_stats[opponent_peer_id]['wpm']
+	var opponent_accuracy = players_stats[opponent_peer_id]['accuracy']
+	
 	test_time_updated.emit(_test_time, wpm, accuracy)
+	multiplayer_opponent_stats_updated.emit(opponent_wpm, opponent_accuracy)
 
 
 func _on_one_sec_timer_timeout() -> void:

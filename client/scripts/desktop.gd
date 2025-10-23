@@ -83,6 +83,11 @@ func _on_input_manager_test_time_updated(time: int, wpm: float, accuracy: float)
 		popup_menu.no_button.pressed.connect(_on_deny_retry)
 
 
+func _on_input_manager_multiplayer_opponent_stats_updated(wpm: float, accuracy: float) -> void:
+	if typing_screen:
+		typing_screen.update_opponent_stats(wpm, accuracy)
+
+
 func _on_accept_retry() -> void:
 	SceneManager.retry_test.emit()
 

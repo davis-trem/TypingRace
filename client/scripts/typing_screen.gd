@@ -6,8 +6,14 @@ extends Control
 @onready var information_container: MarginContainer = $InformationContainer
 @onready var loading_spinner: ColorRect = $LoadingSpinner
 @onready var test_time_label: Label = $InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/TestTime
-@onready var words_per_min_label: Label = $InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/WordsPerMin
-@onready var accuracy_label: Label = $InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/Accuracy
+@onready var player_stats: HBoxContainer = $InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/PlayerStats
+@onready var player_label: Label = $InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/PlayerStats/You
+@onready var words_per_min_label: Label = $InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/PlayerStats/WordsPerMin
+@onready var accuracy_label: Label = $InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/PlayerStats/Accuracy
+@onready var opponent_stats: HBoxContainer = $InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/OpponentStats
+@onready var opponent_words_per_min_label: Label = $InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/OpponentStats/WordsPerMin
+@onready var opponent_accuracy_label: Label = $InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/OpponentStats/Accuracy
+
 
 const CHAR_WIDTH = 22.5
 
@@ -15,7 +21,11 @@ var rich_text_regex = RegEx.new()
 var char_pos = 0
 
 func _ready() -> void:
+	information_container.hide()
 	rich_text_regex.compile(r"\[color=.*?\].\[/color\]|.")
+	
+	player_label.visible = Server.in_multiplayer_test
+	opponent_stats.visible = Server.in_multiplayer_test
 
 
 func handle_key_event(typed_char: String, is_pressed: bool) -> void:
@@ -84,6 +94,12 @@ func update_test_time(time: int, wpm: float, accuracy: float) -> void:
 	words_per_min_label.text = '{0} Words Per Minute'.format([roundi(wpm)])
 	
 	accuracy_label.text = 'Accuracy {0}%'.format([roundi(accuracy * 100)])
+
+
+func update_opponent_stats(wpm: float, accuracy: float) -> void:
+	opponent_words_per_min_label.text = '{0} Words Per Minute'.format([roundi(wpm)])
+	
+	opponent_accuracy_label.text = 'Accuracy {0}%'.format([roundi(accuracy * 100)])
 
 
 func reset_test() -> void:

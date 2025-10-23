@@ -98,14 +98,13 @@ func start_test(room_id: int):
 func on_test_key_input(
 	room_id: int,
 	char_entries: Array,
-	test_time: int,
 	total_entries: int,
 	total_errors: int,
 ):
 	var peer_id := multiplayer.get_remote_sender_id()
 	var wpm_and_accuracy := _calculate_wpm_and_accuracy(
 		char_entries,
-		test_time,
+		rooms[room_id]['test_time'],
 		total_entries,
 		total_errors
 	)

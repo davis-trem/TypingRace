@@ -92,6 +92,7 @@ stream = ExtResource("6_4bxpw")
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/ToggleZoomButton" to="VBoxContainer/Desktop" method="_on_toggle_zoom_button_pressed"]
 [connection signal="char_pos_updated" from="VBoxContainer/InputManager" to="VBoxContainer/Desktop" method="_on_input_manager_char_pos_updated"]
 [connection signal="key_event" from="VBoxContainer/InputManager" to="VBoxContainer/Desktop" method="_on_input_manager_key_event"]
+[connection signal="multiplayer_opponent_stats_updated" from="VBoxContainer/InputManager" to="VBoxContainer/Desktop" method="_on_input_manager_multiplayer_opponent_stats_updated"]
 [connection signal="test_copy_loaded" from="VBoxContainer/InputManager" to="VBoxContainer/Desktop" method="_on_input_manager_test_copy_loaded"]
 [connection signal="test_time_updated" from="VBoxContainer/InputManager" to="VBoxContainer/Desktop" method="_on_input_manager_test_time_updated"]
 [connection signal="toggle_popup_menu" from="VBoxContainer/InputManager" to="VBoxContainer/Desktop" method="_on_input_manager_toggle_popup_menu"]

@@ -5,6 +5,7 @@ const host := '127.0.0.1'
 const port := 1909
 var room_id: int
 var players: Dictionary[int, int] = {} # { [peer_id: int]: instance_id: int }
+var in_multiplayer_test := false
 
 signal joined_room_and_waiting(room_id: int)
 signal room_ready_to_start(room_id: int, peer_ids: Array)
@@ -47,6 +48,7 @@ func room_filled_and_ready(_room_id: int, peer_ids: Array):
 
 @rpc('authority')
 func all_players_ready():
+	in_multiplayer_test = true
 	SceneManager.initialize_test(SceneManager.TEST_TYPE.MULTI)
 
 
@@ -85,7 +87,6 @@ func start_test(_room_id: int):
 func on_test_key_input(
 	room_id: int,
 	char_entries: Array,
-	test_time: int,
 	total_entries: int,
 	total_errors: int,
 ):

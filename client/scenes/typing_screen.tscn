@@ -23,7 +23,6 @@ offset_bottom = 600.0
 color = Color(0, 0, 0, 1)
 
 [node name="InformationContainer" type="MarginContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,24 +46,64 @@ theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="InformationContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="TestTime" type="Label" parent="InformationContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("2_oel6g")
 theme_override_font_sizes/font_size = 10
 text = "0:00"
 
-[node name="WordsPerMin" type="Label" parent="InformationContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerStats" type="HBoxContainer" parent="InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="You" type="Label" parent="InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/PlayerStats"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_oel6g")
+theme_override_font_sizes/font_size = 10
+text = "You:"
+
+[node name="WordsPerMin" type="Label" parent="InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/PlayerStats"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_fonts/font = ExtResource("2_oel6g")
 theme_override_font_sizes/font_size = 10
-text = "Start Typing To Begin"
+text = "|Start Typing To Begin"
+horizontal_alignment = 1
 
-[node name="Accuracy" type="Label" parent="InformationContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Accuracy" type="Label" parent="InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/PlayerStats"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_oel6g")
+theme_override_font_sizes/font_size = 10
+
+[node name="OpponentStats" type="HBoxContainer" parent="InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Opponent" type="Label" parent="InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/OpponentStats"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_oel6g")
+theme_override_font_sizes/font_size = 10
+text = "Opponent:"
+
+[node name="WordsPerMin" type="Label" parent="InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/OpponentStats"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_fonts/font = ExtResource("2_oel6g")
+theme_override_font_sizes/font_size = 10
+
+[node name="Accuracy" type="Label" parent="InformationContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/OpponentStats"]
+layout_mode = 2
+size_flags_horizontal = 8
 theme_override_fonts/font = ExtResource("2_oel6g")
 theme_override_font_sizes/font_size = 10
 
