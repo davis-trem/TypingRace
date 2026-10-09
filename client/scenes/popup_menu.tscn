@@ -51,12 +51,15 @@ layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="Description" type="Label" parent="Panel/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(440, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_fonts/font = ExtResource("1_4t1ff")
 theme_override_font_sizes/font_size = 20
 text = "Exit?"
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="OptionsContainer" type="HBoxContainer" parent="Panel/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
 layout_mode = 2

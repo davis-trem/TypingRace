@@ -11,6 +11,7 @@ signal joined_room_and_waiting(room_id: int)
 signal room_ready_to_start(room_id: int, peer_ids: Array)
 signal multiplayer_test_has_started
 signal test_stats_updated(test_time: int, players_stats: Dictionary)
+signal opponent_disconnected
 
 func connect_to_server() -> void:
 	print('connecting to server')
@@ -20,10 +21,14 @@ func connect_to_server() -> void:
 
 
 func disconnect_from_server() -> void:
-	print('disconnecting from server')
-	multiplayer_peer.disconnect_peer(1)
-	multiplayer_peer.close()
-	multiplayer.multiplayer_peer = null
+	if Server.multiplayer_peer.get_connection_status() == ENetMultiplayerPeer.CONNECTION_CONNECTED:
+		print('disconnecting from server')
+		multiplayer_peer.disconnect_peer(1)
+		multiplayer_peer.close()
+		multiplayer.multiplayer_peer = null
+		in_multiplayer_test = false
+		room_id = -1
+		players = {}
 
 
 func request_join_random_room():
@@ -63,9 +68,9 @@ func update_stats(test_time: int, players_stats: Dictionary):
 
 
 @rpc('authority')
-func test_time_ended():
-	pass
-
+func remove_from_room():
+	disconnect_from_server()
+	SceneManager.change_screen(SceneManager.SCREEN_MAIN_MENU, func (_screen): opponent_disconnected.emit())
 
 ######### Server methods #########
 @rpc('any_peer')

@@ -32,6 +32,7 @@ func _ready() -> void:
 	SceneManager.retry_test.connect(_on_retry_test)
 	SceneManager.loading_new_screen.connect(_on_loading_new_screen)
 	SceneManager.screen_loaded.connect(_on_screen_loaded)
+	Server.opponent_disconnected.connect(_on_opponent_disconnected)
 
 
 func _input(event: InputEvent) -> void:
@@ -67,7 +68,12 @@ func _on_input_manager_char_pos_updated(pos: int) -> void:
 		typing_screen.on_char_pos_updated(pos)
 
 
-func _on_input_manager_test_time_updated(time: int, wpm: float, accuracy: float) -> void:
+func _on_input_manager_test_time_updated(
+	time: int,
+	wpm: float,
+	accuracy: float,
+	multiplayer_result = true
+) -> void:
 	if typing_screen:
 		typing_screen.update_test_time(time, wpm, accuracy)
 	
@@ -75,10 +81,14 @@ func _on_input_manager_test_time_updated(time: int, wpm: float, accuracy: float)
 		if popup_menu == null:
 			popup_menu = popup_menu_scene.instantiate()
 			sub_viewport.add_child(popup_menu)
-		popup_menu.description.text = 'WPM: {0}\nAccuracy: {1}%\nRetry?'.format([
-			roundi(wpm),
-			roundi(accuracy * 100)
-		])
+		popup_menu.description.text = \
+			('You ' + (
+				'win' if multiplayer_result else 'lose'
+			) if Server.in_multiplayer_test else '') +\
+			'WPM: {0}\nAccuracy: {1}%\nRetry?'.format([
+				roundi(wpm),
+				roundi(accuracy * 100)
+			])
 		popup_menu.yes_button.pressed.connect(_on_accept_retry)
 		popup_menu.no_button.pressed.connect(_on_deny_retry)
 
@@ -93,7 +103,20 @@ func _on_accept_retry() -> void:
 
 
 func _on_deny_retry() -> void:
+	Server.disconnect_from_server()
 	SceneManager.change_screen(SceneManager.SCREEN_MAIN_MENU)
+
+
+func _on_opponent_disconnected() -> void:
+	Server.disconnect_from_server()
+	SceneManager.change_screen(SceneManager.SCREEN_MAIN_MENU)
+	if popup_menu == null:
+		popup_menu = popup_menu_scene.instantiate()
+		sub_viewport.add_child(popup_menu)
+	popup_menu.description.text = 'Your opponent left cause they mad pussy ¯\\_(ツ)_/¯'
+	popup_menu.yes_button.hide()
+	popup_menu.no_button.text = 'Damn, iight'
+	popup_menu.no_button.pressed.connect(func(): popup_menu.queue_free(); popup_menu = null)
 
 
 func _on_retry_test() -> void:

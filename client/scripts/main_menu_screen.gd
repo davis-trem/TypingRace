@@ -3,7 +3,6 @@ extends Control
 @onready var solo_options: MarginContainer = $Background/InformationContainer/VBoxContainer/VBoxContainer/SoloOptions
 @onready var muliplayer_options: MarginContainer = $Background/InformationContainer/VBoxContainer/VBoxContainer/MuliplayerOptions
 
-var focused_control := solo_button
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	solo_button.grab_focus()

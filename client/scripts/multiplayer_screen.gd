@@ -62,8 +62,7 @@ func _on_room_ready_to_start(room_id: int, peer_ids: Array) -> void:
 
 
 func _on_back_button_pressed() -> void:
-	if Server.multiplayer_peer.get_connection_status() == ENetMultiplayerPeer.CONNECTION_CONNECTED:
-		Server.disconnect_from_server()
+	Server.disconnect_from_server()
 	SceneManager.change_screen(SceneManager.SCREEN_MAIN_MENU)
 
 
@@ -71,3 +70,4 @@ func _on_continue_button_pressed() -> void:
 	Server.confirm_ready_for_test()
 	status_text = 'Waiting for opponent to confirm ready'
 	status.text = status_text
+	continue_button.disabled = true

@@ -24,9 +24,13 @@ func _on_peer_connected(peer_id: int):
 func _on_peer_disconnected(peer_id: int):
 	print('peer {0} disconnected'.format([peer_id]))
 	for room_id in rooms:
-		if peer_id in rooms[room_id]['players']:
-			rooms[room_id]['players'].erase(peer_id)
-			return
+		for pid in rooms[room_id]['players']:
+			remove_from_room.rpc_id(pid)
+		if rooms.has(room_id):
+			if rooms[room_id].has('timer'):
+				(rooms[room_id]['timer'] as Timer).queue_free()
+			rooms.erase(room_id)
+		return
 
 
 @rpc('any_peer')
@@ -120,8 +124,6 @@ func _on_test_timer_one_sec_timeout(room_id: int):
 		update_stats.rpc_id(peer_id, rooms[room_id]['test_time'], rooms[room_id]['players'])
 	if rooms[room_id]['test_time'] == 0:
 		(rooms[room_id]['timer'] as Timer).queue_free()
-		for peer_id in rooms[room_id]['players']:
-			test_time_ended.rpc_id(peer_id)
 
 
 func _calculate_wpm_and_accuracy(
@@ -168,5 +170,5 @@ func update_stats(_test_time: int, _players_stats: Dictionary):
 
 
 @rpc('authority')
-func test_time_ended():
+func remove_from_room():
 	pass

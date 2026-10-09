@@ -110,6 +110,7 @@ func _on_test_copy_request_completed(
 
 func _return_to_main_menu() -> void:
 	_end_test()
+	Server.disconnect_from_server()
 	SceneManager.change_screen(SceneManager.SCREEN_MAIN_MENU)
 
 
@@ -161,7 +162,6 @@ func _handle_test_input(event: InputEvent) -> void:
 	
 	# Begin Test when typing starts
 	if not test_in_prorgess:
-		
 		if test_type == SceneManager.TEST_TYPE.MULTI:
 			Server.start_test.rpc_id(1, Server.room_id)
 		else:
@@ -197,7 +197,7 @@ func _on_test_stats_updated(_test_time: int, players_stats: Dictionary) -> void:
 	var opponent_wpm = players_stats[opponent_peer_id]['wpm']
 	var opponent_accuracy = players_stats[opponent_peer_id]['accuracy']
 	
-	test_time_updated.emit(_test_time, wpm, accuracy)
+	test_time_updated.emit(_test_time, wpm, accuracy, wpm > opponent_wpm)
 	multiplayer_opponent_stats_updated.emit(opponent_wpm, opponent_accuracy)
 
 
