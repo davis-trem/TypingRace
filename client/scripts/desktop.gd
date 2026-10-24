@@ -54,6 +54,8 @@ func _on_input_manager_key_event(key: String, typed_char: String, is_press: bool
 
 
 func _get_animation_name(key: String) -> String:
+	if key == 'Z':
+		return 'ZAction'
 	return '{0}_pressed'.format([key_code_to_keyboard.get(key, key)])
 
 

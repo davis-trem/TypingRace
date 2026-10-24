@@ -114,10 +114,37 @@ func _return_to_main_menu() -> void:
 	SceneManager.change_screen(SceneManager.SCREEN_MAIN_MENU)
 
 
+func keycode_to_char(keycode_with_modifiers: int) -> String:
+	# 1. If Ctrl, Alt, or Meta are held down, this isn't text input. Return ""
+	# This instantly filters out combinations like Ctrl+A, Alt+A, or Cmd+A
+	if (keycode_with_modifiers & (KEY_MASK_CTRL | KEY_MASK_ALT | KEY_MASK_META)) != 0:
+		return ""
+		
+	# 2. Isolate the base key layout number
+	var raw_keycode: int = keycode_with_modifiers & KEY_CODE_MASK
+	
+	# 3. Filter out standalone modifier key taps (pressing just Shift by itself)
+	if raw_keycode >= KEY_SPECIAL:
+		return ""
+		
+	# 4. Check if the Shift bit mask is active
+	var is_shift_pressed: bool = (keycode_with_modifiers & KEY_MASK_SHIFT) != 0
+	
+	# 5. Handle character shifting (A-Z maps directly to ASCII 65-90)
+	if raw_keycode >= 65 and raw_keycode <= 90:
+		if not is_shift_pressed:
+			raw_keycode += 32 # Shift down to lowercase 'a' (97)
+		return char(raw_keycode)
+		
+	# 6. For non-letter keys (Space = 32, Slash = 47, Numbers 0-9), 
+	# they match ASCII natively. Just convert them straight across!
+	return char(raw_keycode)
+
+
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not event.echo:
 		var key: String = OS.get_keycode_string(event.key_label)
-		typed_char = char(event.unicode)
+		typed_char = keycode_to_char(event.get_keycode_with_modifiers())
 		
 		if event.pressed:
 			if SceneManager.enable_sound_fx:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d1krnpaxa3ss7"]
+[gd_scene format=3 uid="uid://d1krnpaxa3ss7"]
 
 [ext_resource type="PackedScene" uid="uid://be6f8fgp7c7j8" path="res://scenes/input_manager.tscn" id="1_6gtug"]
 [ext_resource type="Texture2D" uid="uid://bm5a6exqw8qk4" path="res://assets/keyboard-icon.png" id="1_akuuq"]
@@ -21,7 +21,7 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_fu5ee"]
 events = [SubResource("InputEventAction_lsaa0")]
 
-[node name="GamePlayScreen" type="Control"]
+[node name="GamePlayScreen" type="Control" unique_id=1634851346]
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 15
@@ -30,7 +30,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1858103407]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,7 +39,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 120
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1076751363]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 30
@@ -47,12 +47,12 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=1145286761]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="VKeyboardButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="VKeyboardButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=540093562]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 tooltip_text = "Keyboard"
@@ -62,7 +62,7 @@ icon = ExtResource("1_akuuq")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ToggleZoomButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="ToggleZoomButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=609874712]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -73,11 +73,11 @@ icon = ExtResource("2_xo1v1")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Desktop" parent="VBoxContainer" instance=ExtResource("2_dqhc0")]
+[node name="Desktop" parent="VBoxContainer" unique_id=1915586886 instance=ExtResource("2_dqhc0")]
 
-[node name="InputManager" parent="VBoxContainer" instance=ExtResource("1_6gtug")]
+[node name="InputManager" parent="VBoxContainer" unique_id=1125716647 instance=ExtResource("1_6gtug")]
 
-[node name="OnscreenKeyboard" type="PanelContainer" parent="VBoxContainer"]
+[node name="OnscreenKeyboard" type="PanelContainer" parent="VBoxContainer" unique_id=1441429502]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
@@ -85,7 +85,7 @@ script = ExtResource("4_acogd")
 auto_show = false
 font_size = 40
 
-[node name="ClickAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="ClickAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=528032387]
 stream = ExtResource("6_4bxpw")
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/VKeyboardButton" to="VBoxContainer/InputManager" method="_on_v_keyboard_button_pressed"]
